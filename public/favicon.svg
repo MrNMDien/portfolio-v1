@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MĐ">
+  <rect width="64" height="64" fill="#141311"/>
+  <rect x="0" y="58" width="64" height="6" fill="#FF4D00"/>
+  <text x="32" y="43"
+        font-family="Archivo, Arial Narrow, Helvetica, sans-serif"
+        font-size="34" font-weight="900" letter-spacing="-2"
+        text-anchor="middle" fill="#F3EEE6">MĐ</text>
+</svg>

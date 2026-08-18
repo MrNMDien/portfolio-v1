@@ -1,0 +1,329 @@
+/* =========================================================================
+   MOTION — lớp CSS phục vụ Phase 2.
+   Hầu hết quy tắc bọc trong `html.motion` — class này chỉ được JS gắn khi
+   KHÔNG có prefers-reduced-motion, nên trang tĩnh Phase 1 vẫn nguyên vẹn nếu
+   JS lỗi hoặc người dùng xin giảm chuyển động.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   Lenis
+   ------------------------------------------------------------------------- */
+html.lenis,
+html.lenis body { height: auto; }
+
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* -------------------------------------------------------------------------
+   Mask cho text reveal
+   `overflow: clip` + `overflow-clip-margin` nới vùng hiển thị 0.24em nên dấu
+   tiếng Việt (Ễ, Ầ, ộ) và đuôi chữ (g, y) KHÔNG bị cắt ở trạng thái nghỉ.
+   Đổi lại quãng trượt trong reveal.js phải là 150% (không phải 110%).
+   ------------------------------------------------------------------------- */
+.rv-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.rv-line {
+  display: block;
+  overflow: hidden;
+}
+
+@supports (overflow: clip) {
+  .rv-word,
+  .rv-line {
+    overflow: clip;
+    overflow-clip-margin: .24em;
+  }
+}
+
+.rv-word__in { display: inline-block; }
+.rv-line__in { display: block; }
+
+/* Dòng chứa phần tử block cao bất thường (dấu ngoặc kép 11rem) — không mask. */
+.rv-line--free { overflow: visible; }
+
+/* -------------------------------------------------------------------------
+   Thanh tiến độ trang (2px accent, fixed top)
+   ------------------------------------------------------------------------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: calc(var(--z-header) + 100);
+  pointer-events: none;
+}
+
+.scroll-progress__bar {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+/* -------------------------------------------------------------------------
+   Header — thu gọn khi cuộn xuống
+   ------------------------------------------------------------------------- */
+html.motion .site-header {
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    backdrop-filter var(--dur-fast) var(--ease-out);
+}
+
+html.motion .site-header.is-scrolled {
+  background: rgba(243, 238, 230, .92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--line-strong);
+}
+
+/* Underline nav: 250ms cubic-bezier(.4,0,.2,1) theo MOTION.md §4 */
+html.motion .site-nav__link::after {
+  transition: transform 250ms cubic-bezier(.4, 0, .2, 1);
+}
+
+/* -------------------------------------------------------------------------
+   Impact — line ngăn cách scaleX 0 → 1 từ trái
+   ------------------------------------------------------------------------- */
+html.motion .impact__grid {
+  position: relative;
+  border-top-color: transparent;
+}
+
+html.motion .impact__grid::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--hairline) * -1);
+  height: var(--hairline);
+  background: var(--line);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 800ms var(--ease-out);
+}
+
+html.motion .impact__grid.is-ruled::before { transform: scaleX(1); }
+
+/* -------------------------------------------------------------------------
+   Strengths — pin ngang (chỉ desktop)
+   ------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  html.motion .pin-strengths {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Dưới 1024px trả lại hành vi Phase 1: cuộn ngang native / stack dọc. */
+@media (max-width: 1023px) {
+  html.motion .panels-track {
+    width: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+}
+
+@media (max-width: 767px) {
+  html.motion .panels-track {
+    width: auto;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+}
+
+.strengths__progress {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: clamp(24px, 5vh, 56px);
+  height: 2px;
+  background: var(--line);
+  pointer-events: none;
+}
+
+.strengths__progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+/* -------------------------------------------------------------------------
+   Media — parallax bên trong khung + hover Works
+   `--parallax-y` do parallax.js ghi; khung .media đứng yên, chỉ mảng gradient
+   bên trong dịch chuyển nên không có khe hở.
+   ------------------------------------------------------------------------- */
+@property --media-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+html.motion .media { --media-scale: 1; }
+
+/* Nới lớp gradient ra ngoài khung 9% theo CHIỀU DỌC (không scale đều) để
+   parallax ±8% không hở mép — giữ nguyên bố cục ngang của mảng màu đã duyệt. */
+html.motion .media::before {
+  inset: -9% 0;
+  transform: translate3d(0, var(--parallax-y, 0px), 0) scale(var(--media-scale));
+  transform-origin: center;
+}
+
+html.motion .hero__wash {
+  transform: translate3d(0, var(--parallax-y, 0px), 0);
+}
+
+/* Hover Works — quy tắc hover-in/out của transitions-polish: vào NHANH và dứt
+   khoát, ra CHẬM và mềm hơn. Duration khai báo ở trạng thái nghỉ = hover-out;
+   bản ghi đè trong `:hover` = hover-in.
+   Quãng dịch 4px của .case__result là micro-motion → 600ms quá lề mề, kéo về
+   250ms (--duration-fast) cho khớp mức di chuyển. */
+@media (hover: hover) and (pointer: fine) {
+  html.motion .media { transition: --media-scale 600ms var(--ease-out); }
+  html.motion .case:hover .case__media {
+    --media-scale: 1.04;
+    transition-duration: 400ms;
+  }
+
+  html.motion .case__name { transition: color 400ms var(--ease-out); }
+  html.motion .case:hover .case__name {
+    color: var(--accent-ink);
+    transition-duration: 250ms;
+  }
+
+  html.motion .case__result { transition: transform 400ms var(--ease-out); }
+  html.motion .case:hover .case__result {
+    transform: translateY(-4px);
+    transition-duration: 250ms;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Quote — nền ink quét lên bằng clip-path
+   ------------------------------------------------------------------------- */
+html.motion .quote { background: var(--bg); }
+
+html.motion .quote > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.quote__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--ink);
+  clip-path: inset(100% 0% 0% 0%);
+  will-change: clip-path;
+}
+
+/* -------------------------------------------------------------------------
+   Contact — gạch chân dày accent cho email
+   ------------------------------------------------------------------------- */
+html.motion .contact__mail { position: relative; }
+
+html.motion .contact__mail::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 6px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+html.motion .contact__mail:hover::after,
+html.motion .contact__mail:focus-visible::after { transform: scaleX(1); }
+
+/* -------------------------------------------------------------------------
+   Con trỏ tuỳ biến
+   ------------------------------------------------------------------------- */
+.cursor {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-shutter) - 50);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cursor__dot,
+.cursor__ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor__dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--ink);
+}
+
+.cursor__ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid var(--line-strong);
+  transition:
+    width 250ms var(--ease-out),
+    height 250ms var(--ease-out),
+    margin 250ms var(--ease-out),
+    border-color 250ms var(--ease-out),
+    opacity 250ms var(--ease-out);
+}
+
+/* scale mô phỏng bằng width/height để viền không bị kéo dày. */
+.cursor.is-hover .cursor__ring {
+  width: 79px;   /* 36 × 2.2 */
+  height: 79px;
+  margin: -39.5px 0 0 -39.5px;
+  opacity: .6;
+}
+
+.cursor.is-magnetic .cursor__ring {
+  width: 58px;   /* 36 × 1.6 */
+  height: 58px;
+  margin: -29px 0 0 -29px;
+  border-color: var(--accent);
+  opacity: 1;
+}
+
+.cursor.is-inverted .cursor__dot { background: var(--on-ink); }
+.cursor.is-inverted .cursor__ring { border-color: var(--line-on-ink); }
+.cursor.is-inverted.is-magnetic .cursor__ring { border-color: var(--accent); }
+
+html.has-cursor body,
+html.has-cursor body * { cursor: none; }
+
+/* -------------------------------------------------------------------------
+   Tôn trọng prefers-reduced-motion tuyệt đối
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .cursor,
+  .scroll-progress,
+  .strengths__progress { display: none !important; }
+
+  html.has-cursor body,
+  html.has-cursor body * { cursor: auto; }
+}

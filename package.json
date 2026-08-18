@@ -1,0 +1,19 @@
+{
+  "name": "nguyen-minh-dien-portfolio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Portfolio — Nguyen Minh Dien, Performance Marketing Leader",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
+  }
+}

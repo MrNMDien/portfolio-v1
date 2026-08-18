@@ -1,0 +1,444 @@
+/* =========================================================================
+   BASE — reset, layout primitives, shared components, utilities
+   ========================================================================= */
+
+/* ---- Reset --------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* KHÔNG đặt overflow-x (hidden hay clip) ở <html>: đã thử và đo được cả hai
+     đều biến root thành scroll container, làm `.site-header` mất sticky (top
+     tụt theo trang). Việc chặn tràn ngang do `body { overflow-x: hidden }`
+     bên dưới đảm nhiệm — người dùng không cuộn ngang được. */
+  /* Phase 2: Lenis lo phần smooth scroll (và anchor nav dùng lenis.scrollTo),
+     nên `scroll-behavior: smooth` native đã được gỡ — hai cơ chế chồng nhau
+     sẽ giật. Khi prefers-reduced-motion, anchor nhảy thẳng: đúng ý người dùng. */
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+p, figure, blockquote, dl, dd, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol { list-style: none; }
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Vân giấy rất nhẹ toàn trang — giữ cảm giác in ấn, không phải màn hình */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: var(--noise);
+  opacity: .035;
+  mix-blend-mode: multiply;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+/* ---- Accessibility ------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: calc(var(--z-preloader) + 10);
+  transform: translateY(-200%);
+  background: var(--ink);
+  color: var(--on-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus-visible { transform: translateY(0); }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ---- Layout primitives --------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  row-gap: var(--grid-gap);
+}
+
+@media (max-width: 767px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-space);
+}
+
+.section--tight { padding-block: calc(var(--section-space) * .62); }
+.section--deep  { background: var(--bg-deep); }
+
+.section--ink {
+  background: var(--ink);
+  --surface: var(--ink);
+  --text: var(--on-ink);
+  --text-soft: var(--on-ink-soft);
+  --rule: var(--line-on-ink);
+  --accent-text: var(--accent);
+  color: var(--on-ink);
+}
+
+/* ---- Typography primitives ----------------------------------------------- */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.display--hero { font-size: var(--fs-hero); font-weight: 900; }
+.display--lg   { font-size: var(--fs-display); }
+.display--sm   { font-size: var(--fs-display-sm); letter-spacing: -.02em; }
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--text-soft, var(--ink-soft));
+  max-width: 46ch;
+}
+
+.body-text {
+  color: var(--text-soft, var(--ink-soft));
+  max-width: 62ch;
+}
+
+.body-text strong,
+.lead strong {
+  color: var(--text, var(--ink));
+  font-weight: 600;
+}
+
+/* Nhãn section: 001 / PROFILE — mono + hairline kéo hết cột */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: clamp(32px, 5vh, 64px);
+  color: var(--text-soft, var(--ink-soft));
+}
+
+.section-label__index {
+  color: var(--accent-text, var(--accent-ink));
+  font-weight: 500;
+}
+
+.section-label__name { white-space: nowrap; }
+
+.section-label__rule {
+  flex: 1 1 auto;
+  height: var(--hairline);
+  background: var(--rule, var(--line));
+}
+
+/* ---- Links & buttons ------------------------------------------------------ */
+.link-underline {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 48px;
+  padding: 14px 24px;
+  border: var(--hairline) solid var(--text, var(--ink));
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text, var(--ink));
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+.btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+.btn:active { transform: translateY(1px); }
+
+.btn--accent {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--ink);              /* ink trên cam = 5.65:1 (AA); trắng trên cam chỉ 3.33:1 */
+}
+.btn--accent:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+/* ---- Media placeholder (gradient cream-cam + noise, KHÔNG ảnh stock) ------ */
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background-color: var(--bg-deep);
+  box-shadow: inset 0 0 0 var(--hairline) var(--line);
+  isolation: isolate;
+}
+
+.media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(128% 88% at 8% 2%,   rgba(255, 77, 0, .72)  0%,
+                                          rgba(255, 122, 40, .30) 32%,
+                                          transparent 64%),
+    radial-gradient(96% 74% at 104% 26%, rgba(255, 176, 120, .52), transparent 58%),
+    radial-gradient(88% 66% at 78% 108%, rgba(255, 96, 20, .28), transparent 62%),
+    linear-gradient(162deg, #FAF6EF 0%, #F1E8D9 52%, #E6D9C6 100%);
+  filter: saturate(108%);
+}
+
+/* Vệt hairline chéo — dấu vết "biểu đồ" thay cho ảnh minh hoạ */
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    var(--noise),
+    repeating-linear-gradient(
+      112deg,
+      rgba(20, 19, 17, .10) 0 1px,
+      transparent 1px 46px
+    );
+  background-size: 180px 180px, auto;
+  opacity: .5;
+  mix-blend-mode: multiply;
+}
+
+.media--4-3  { aspect-ratio: 4 / 3; }
+.media--3-4  { aspect-ratio: 3 / 4; }
+.media--wide { aspect-ratio: 16 / 7; }
+
+.media__caption {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  z-index: 2;
+  color: rgba(20, 19, 17, .82);
+}
+
+/* ---- Preloader ------------------------------------------------------------
+   Phase 1: ẨN hoàn toàn — không chặn việc đọc trang khi chưa có JS.
+   Phase 2: main.js thêm class `is-loading` lên <html> ngay khi script chạy,
+   preloader hiện lên rồi được GSAP kéo đi.                                   */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--gutter);
+  background: var(--ink);
+  color: var(--on-ink);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+html.is-loading .preloader {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+html.is-loading body { overflow: hidden; }
+
+.preloader__top,
+.preloader__bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  color: var(--on-ink-soft);
+}
+
+.preloader__mark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(4rem, 22vw, 16rem);
+  line-height: .8;
+  letter-spacing: -.05em;
+  text-transform: uppercase;
+  align-self: center;
+  color: var(--on-ink);
+}
+
+.preloader__count { color: var(--accent); font-variant-numeric: tabular-nums; }
+
+.preloader__bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--accent);
+}
+
+/* ---- Shutter (page/section transition overlay) --------------------------- */
+.shutter {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-shutter);
+  background: var(--accent);
+  transform: translateY(100%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ---- Marquee (markup tĩnh, Phase 2 mới chạy) ----------------------------- */
+.marquee {
+  overflow: hidden;
+  border-block: var(--hairline) solid var(--rule, var(--line));
+  padding-block: clamp(14px, 2vh, 22px);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.marquee__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee__item {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text, var(--ink));
+}
+
+.marquee__dot {
+  flex: none;
+  width: clamp(8px, 1vw, 12px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--accent-text, var(--accent-ink));
+}
+
+/* ---- Utilities ------------------------------------------------------------ */
+.rule-top { border-top: var(--hairline) solid var(--rule, var(--line)); }
+.accent   { color: var(--accent-text, var(--accent-ink)); }
+.nowrap   { white-space: nowrap; }
+.tnum     { font-variant-numeric: tabular-nums; }

@@ -1,0 +1,101 @@
+/* =========================================================================
+   TOKENS — Portfolio Nguyễn Minh Điền
+   Editorial cream / ink / hot-orange. Sharp corners, huge display type.
+   Single accent locked for the whole page: #FF4D00.
+   ========================================================================= */
+
+:root {
+  /* ---- Color ---------------------------------------------------------- */
+  --bg:            #F3EEE6;              /* cream */
+  --bg-deep:       #EAE3D6;              /* cream đậm — section xen kẽ */
+  --ink:           #141311;              /* chữ chính / nền đảo */
+  --ink-soft:      #635C51;              /* chữ phụ — 5.78:1 trên cream, 5.23:1 trên bg-deep (AA) */
+  --accent:        #FF4D00;              /* cam thương hiệu — dùng làm NỀN mảng, hoặc trên nền ink */
+  --accent-ink:    #B83900;              /* cam đậm — bắt buộc khi cam là CHỮ/NÉT MẢNH trên cream (5.01:1, AA) */
+  --line:          rgba(20, 19, 17, .14);
+  --line-strong:   rgba(20, 19, 17, .28);
+
+  /* Đảo màu (section Quote) */
+  --on-ink:        #F3EEE6;              /* 16.3:1 trên ink */
+  --on-ink-soft:   rgba(243, 238, 230, .62);
+  --line-on-ink:   rgba(243, 238, 230, .18);
+
+  /* Vai trò theo ngữ cảnh — section tự set lại 3 biến này khi đảo nền */
+  --surface:       var(--bg);
+  --text:          var(--ink);
+  --text-soft:     var(--ink-soft);
+  --rule:          var(--line);
+  --accent-text:   var(--accent-ink);
+
+  /* ---- Shape ---------------------------------------------------------- */
+  --radius:        2px;
+  --hairline:      1px;
+
+  /* ---- Typography ------------------------------------------------------ */
+  --font-display:  "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --font-body:     "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:     "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  /* Hero — đo thực tế trên 375 / 768 / 1280 / 1440 / 1920.
+     12.6vw  : trần theo bề ngang, để từ dài nhất ("PREDICTABLE") không tràn khung ở mobile
+     8.6vw   : nhịp desktop, giữ headline đúng 3 dòng
+     4.2rem  : sàn để headline không bị nhỏ ở tablet
+     7.6rem  : trần tuyệt đối, tránh vỡ 4 dòng trên màn siêu rộng */
+  --fs-hero:       min(12.6vw, max(8.6vw, 4.2rem), 7.6rem);
+  --fs-display:    clamp(2rem, 6vw, 4.5rem);
+  --fs-display-sm: clamp(1.6rem, 3.4vw, 2.6rem);
+  --fs-number:     clamp(3rem, 8vw, 7rem);
+  --fs-lead:       clamp(1.0625rem, 1.5vw, 1.375rem);
+  --fs-body:       clamp(1rem, 1.05vw, 1.0625rem);
+  --fs-small:      .875rem;
+  --fs-mono:       .75rem;
+  --fs-mono-sm:    .6875rem;
+
+  --lh-display:    .92;
+  --lh-heading:    1.04;
+  --lh-body:       1.6;
+
+  --tracking-display: -.03em;
+  --tracking-mono:    .14em;
+
+  /* ---- Space ----------------------------------------------------------- */
+  --gutter:        clamp(20px, 4vw, 64px);
+  --maxw:          1440px;
+  --grid-gap:      clamp(16px, 2vw, 32px);
+  --section-space: clamp(120px, 18vh, 240px);
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  --header-h:      68px;
+
+  /* ---- Motion (Phase 2 dùng lại đúng các biến này) --------------------- */
+  --ease-out:      cubic-bezier(.16, 1, .3, 1);
+  --ease-in-out:   cubic-bezier(.65, 0, .35, 1);
+  --dur-fast:      180ms;
+  --dur-base:      320ms;
+  --dur-slow:      400ms;   /* align thang transitions-polish (--duration-slow) */
+
+  --z-shutter:     900;
+  --z-preloader:   1000;
+  --z-header:      100;
+
+  /* ---- Texture --------------------------------------------------------- */
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Dưới 1024px header xuống 2 dòng (mark + nav) → chiều cao thực ~76px */
+@media (max-width: 1023px) {
+  :root { --header-h: 76px; }
+}
+
+@media (max-width: 767px) {
+  :root { --section-space: clamp(88px, 14vh, 140px); }
+}

@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Nguyễn Minh Điền — Performance Marketing Leader</title>
+  <meta name="description" content="Portfolio của Nguyễn Minh Điền — Performance Marketing Leader. Vận hành hơn 15 tỷ đồng ngân sách quảng cáo mỗi tháng trên Meta, TikTok và hệ thống dữ liệu tự xây." />
+  <meta name="theme-color" content="#F3EEE6" />
+  <meta name="color-scheme" content="light" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Nguyễn Minh Điền — Performance Marketing Leader" />
+  <meta property="og:description" content="Turning ad spend into predictable growth. Portfolio 2026." />
+  <meta property="og:locale" content="vi_VN" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500..900&family=Be+Vietnam+Pro:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+  />
+
+  <link rel="stylesheet" href="/src/styles/tokens.css" />
+  <link rel="stylesheet" href="/src/styles/base.css" />
+  <link rel="stylesheet" href="/src/styles/sections.css" />
+  <link rel="stylesheet" href="/src/styles/motion.css" />
+
+  <!-- Phase 2 — bật preloader NGAY dòng đầu, không đợi DOMContentLoaded.
+       Nếu bundle JS lỗi/không tải được, failsafe tự gỡ màn để trang không
+       bao giờ trắng hay bị chặn. -->
+  <script>
+    (function () {
+      var el = document.documentElement;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      el.classList.add('is-loading');
+      // Preloader luôn mở từ đầu trang → tự quản vị trí cuộn cho chắc nhịp.
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      // Đếm tối đa 2.5s + màn kéo 0.9s; mốc này chỉ để cứu khi JS chết hẳn.
+      setTimeout(function () { el.classList.remove('is-loading'); }, 4000);
+    })();
+  </script>
+
+  <script type="module" src="/src/main.js"></script>
+</head>
+
+<body>
+
+  <!-- =====================================================================
+       0 — PRELOADER (markup tĩnh; Phase 2 sẽ chạy đếm 000 → 100 rồi kéo đi)
+       ===================================================================== -->
+  <div class="preloader" data-preloader role="status" aria-live="polite" aria-label="Đang tải trang">
+    <div class="preloader__top">
+      <span class="mono">Performance Marketing Portfolio — 2026</span>
+      <span class="mono preloader__count tnum" data-preloader-count>000 — 100</span>
+    </div>
+
+    <span class="preloader__mark" aria-hidden="true">MĐ</span>
+
+    <div class="preloader__bottom">
+      <span class="mono">Nguyễn Minh Điền</span>
+      <span class="mono">Ho Chi Minh City, VN</span>
+    </div>
+
+    <span class="preloader__bar" data-preloader-bar aria-hidden="true"></span>
+  </div>
+
+  <a class="skip-link" href="#main">Bỏ qua tới nội dung</a>
+
+  <!-- =====================================================================
+       1 — HEADER
+       ===================================================================== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-mark" href="#main" data-magnetic>
+        <span class="site-mark__glyph">MĐ</span>
+        <span aria-hidden="true">—</span>
+        <span>Nguyễn Minh Điền</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Điều hướng chính">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="#profile" data-magnetic>Profile</a></li>
+          <li><a class="site-nav__link" href="#impact" data-magnetic>Impact</a></li>
+          <li><a class="site-nav__link" href="#works" data-magnetic>Works</a></li>
+          <li><a class="site-nav__link" href="#method" data-magnetic>Method</a></li>
+          <li><a class="site-nav__link" href="#contact" data-magnetic>Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-meta mono">
+        <span class="site-meta__place">
+          <span>Ho Chi Minh City, VN</span>
+        </span>
+        <time class="site-meta__clock" data-clock aria-label="Giờ địa phương, GMT+7">--:--:--</time>
+        <span class="chip mono">
+          <span class="chip__dot" aria-hidden="true"></span>
+          <span class="chip__label">Open to opportunities</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===================================================================
+         2 — HERO
+         =================================================================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <span class="hero__wash" aria-hidden="true" data-parallax="0.15"></span>
+
+      <div class="container hero__inner">
+        <p class="mono hero__kicker" data-reveal="fade-up">Performance Marketing Leader</p>
+
+        <h1 class="display display--hero hero__title" id="hero-title" lang="en" data-reveal="words">
+          Turning ad spend into predictable growth<span class="accent-dot">.</span>
+        </h1>
+
+        <div class="hero__foot">
+          <p class="hero__subline" data-reveal="lines">
+            Tôi là Nguyễn Minh Điền — vận hành hơn 15 tỷ đồng ngân sách quảng cáo mỗi tháng
+            trên Meta, TikTok và hệ thống dữ liệu tự xây. Tăng trưởng không đến từ may mắn,
+            nó đến từ quy trình.
+          </p>
+
+          <a class="mono hero__scroll" href="#profile" data-magnetic data-reveal="fade-up">
+            <span>Scroll — 001</span>
+            <span class="hero__scroll-line" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3 — PROFILE (001)
+         =================================================================== -->
+    <section class="section profile" id="profile" aria-labelledby="profile-title">
+      <div class="container">
+        <p class="mono section-label" data-reveal="fade-up">
+          <span class="section-label__index">001</span>
+          <span class="section-label__name">/ Profile</span>
+          <span class="section-label__rule" aria-hidden="true"></span>
+        </p>
+
+        <div class="grid profile__head">
+          <h2 class="display display--lg profile__title" id="profile-title" lang="en" data-reveal="words">
+            Young enough to move fast. Proven enough to be trusted with 15B+.
+          </h2>
+
+          <!-- TODO: xác nhận số năm chính xác (đang ghi "4 năm") -->
+          <div class="profile__body">
+            <p class="body-text" data-reveal="fade-up">
+              4 năm trong performance marketing, tôi đi từ media buyer lên leader — không phải
+              nhờ thâm niên, mà nhờ kết quả đo được. Hiện tôi chịu trách nhiệm toàn bộ hiệu quả
+              quảng cáo với ngân sách hơn 15 tỷ/tháng: lên chiến lược, phân bổ đa kênh, xây
+              hệ thống đo lường và dẫn dắt đội ngũ thực thi.
+            </p>
+          </div>
+
+          <figure class="media media--3-4 profile__media" data-parallax="0.15" role="img"
+                  aria-label="Mảng đồ hoạ trừu tượng màu kem và cam, đại diện cho chân dung.">
+            <figcaption class="mono media__caption">Portrait — 2026</figcaption>
+          </figure>
+
+          <ul class="profile__stance">
+            <li class="stance__item" data-reveal="fade-up">
+              <span class="mono stance__index">01</span>
+              <div>
+                <p class="stance__title">Data trước, cảm tính sau</p>
+                <p class="stance__note">Mọi quyết định ngân sách đều có số chứng minh.</p>
+              </div>
+            </li>
+            <li class="stance__item" data-reveal="fade-up">
+              <span class="mono stance__index">02</span>
+              <div>
+                <p class="stance__title">Scale có kỷ luật</p>
+                <p class="stance__note">Tăng ngân sách mà không vỡ hiệu quả.</p>
+              </div>
+            </li>
+            <!-- TODO: sĩ số thật của team (đang ghi "5 người") -->
+            <li class="stance__item" data-reveal="fade-up">
+              <span class="mono stance__index">03</span>
+              <div>
+                <p class="stance__title">Team gọn, đầu ra lớn</p>
+                <p class="stance__note">5 người vận hành khối lượng của một phòng ban.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4 — IMPACT / NUMBERS (002)
+         =================================================================== -->
+    <section class="section section--deep impact" id="impact" aria-labelledby="impact-title">
+      <div class="container">
+        <p class="mono section-label" data-reveal="fade-up">
+          <span class="section-label__index">002</span>
+          <span class="section-label__name">/ Impact</span>
+          <span class="section-label__rule" aria-hidden="true"></span>
+        </p>
+
+        <div class="grid">
+          <h2 class="display display--lg impact__title" id="impact-title" lang="en" data-reveal="words">
+            Numbers don&rsquo;t need adjectives.
+          </h2>
+
+          <ul class="impact__grid">
+            <li class="stat" data-reveal="fade-up">
+              <p class="stat__value">
+                <span class="tnum" data-counter="15" data-counter-suffix="+">15</span><span class="stat__suffix" aria-hidden="true">+</span>
+              </p>
+              <p class="mono stat__unit">tỷ VND / tháng</p>
+              <p class="stat__note">Ngân sách quảng cáo đang vận hành</p>
+            </li>
+
+            <!-- TODO: xác nhận tổng chi tiêu quảng cáo / năm (đang ghi 180+ tỷ) -->
+            <li class="stat" data-reveal="fade-up">
+              <p class="stat__value">
+                <span class="tnum" data-counter="180" data-counter-suffix="+">180</span><span class="stat__suffix" aria-hidden="true">+</span>
+              </p>
+              <p class="mono stat__unit">tỷ VND / năm</p>
+              <p class="stat__note">Tổng chi tiêu quảng cáo chịu trách nhiệm</p>
+            </li>
+
+            <!-- TODO: xác nhận số năm kinh nghiệm (đang ghi 04+) -->
+            <li class="stat" data-reveal="fade-up">
+              <p class="stat__value">
+                <span class="tnum" data-counter="4" data-counter-pad="2" data-counter-suffix="+">04</span><span class="stat__suffix" aria-hidden="true">+</span>
+              </p>
+              <p class="mono stat__unit">năm</p>
+              <p class="stat__note">Kinh nghiệm performance marketing</p>
+            </li>
+
+            <!-- TODO: xác nhận sĩ số team trực tiếp dẫn dắt (đang ghi 05) -->
+            <li class="stat" data-reveal="fade-up">
+              <p class="stat__value">
+                <span class="tnum" data-counter="5" data-counter-pad="2">05</span>
+              </p>
+              <p class="mono stat__unit">thành viên</p>
+              <p class="stat__note">Team trực tiếp dẫn dắt</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         5 — STRENGTHS (002B) — Phase 2: pin + horizontal scroll
+         =================================================================== -->
+    <section class="section strengths" id="strengths" aria-labelledby="strengths-title">
+      <div class="container">
+        <p class="mono section-label" data-reveal="fade-up">
+          <span class="section-label__index">002B</span>
+          <span class="section-label__name">/ Strengths</span>
+          <span class="section-label__rule" aria-hidden="true"></span>
+        </p>
+
+        <div class="grid">
+          <h2 class="display display--lg strengths__title" id="strengths-title" lang="en" data-reveal="words">
+            Four levers of growth.
+          </h2>
+        </div>
+      </div>
+
+      <div class="pin-strengths">
+        <div class="panels-track">
+
+          <!-- TODO: xác nhận tỉ trọng ngân sách Meta (đang ghi ~70%) -->
+          <article class="panel" data-reveal="fade-up">
+            <p class="mono panel__index"><span>01</span></p>
+            <h3 class="panel__title">Meta Ads</h3>
+            <p class="panel__body">
+              Full-funnel trên Meta: từ cấu trúc tài khoản, creative testing đến scale ngân sách
+              lớn mà ROAS không gãy. Đây là kênh tôi tin nhất và hiểu sâu nhất.
+            </p>
+            <p class="panel__metric">
+              <span class="mono panel__metric-label">Chỉ số</span>
+              <span class="panel__metric-value">~70% tổng ngân sách</span>
+            </p>
+          </article>
+
+          <!-- TODO: xác nhận chỉ số tốc độ test creative TikTok (đang ghi x2) -->
+          <article class="panel" data-reveal="fade-up">
+            <p class="mono panel__index"><span>02</span></p>
+            <h3 class="panel__title">TikTok Ads</h3>
+            <p class="panel__body">
+              Content-performance loop: bắt tín hiệu creative sớm, đẩy thắng nhanh, cắt lỗ sớm.
+              TikTok thưởng cho tốc độ — và tốc độ là thứ team tôi có.
+            </p>
+            <p class="panel__metric">
+              <span class="mono panel__metric-label">Chỉ số</span>
+              <span class="panel__metric-value">x2 tốc độ test creative</span>
+            </p>
+          </article>
+
+          <article class="panel" data-reveal="fade-up">
+            <p class="mono panel__index"><span>03</span></p>
+            <h3 class="panel__title">Data &amp; Analytics</h3>
+            <p class="panel__body">
+              Tracking, dashboard, attribution tự xây. Trước khi hỏi &ldquo;chạy gì tiếp&rdquo;,
+              tôi hỏi &ldquo;số đang nói gì&rdquo;. Không có dashboard thì không có cuộc họp.
+            </p>
+            <p class="panel__metric">
+              <span class="mono panel__metric-label">Chỉ số</span>
+              <span class="panel__metric-value">100% chiến dịch có dashboard realtime</span>
+            </p>
+          </article>
+
+          <!-- TODO: xác nhận quy mô team (đang ghi 5 người) -->
+          <article class="panel" data-reveal="fade-up">
+            <p class="mono panel__index"><span>04</span></p>
+            <h3 class="panel__title">Team Leadership</h3>
+            <p class="panel__body">
+              Tuyển, đào tạo và xây quy trình cho team tinh gọn. Mục tiêu của tôi: hệ thống chạy
+              đúng ngay cả khi tôi không ngồi đó.
+            </p>
+            <p class="panel__metric">
+              <span class="mono panel__metric-label">Chỉ số</span>
+              <span class="panel__metric-value">5 người · 1 quy trình chung</span>
+            </p>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="container">
+        <p class="mono strengths__hint" aria-hidden="true">
+          <span class="strengths__hint--pin">Cuộn tiếp để đi qua cả 4 mảng</span>
+          <span class="strengths__hint--drag">Kéo ngang để xem cả 4 mảng</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6 — SELECTED WORKS (003)
+         =================================================================== -->
+    <section class="section section--deep works" id="works" aria-labelledby="works-title">
+      <div class="container">
+        <p class="mono section-label" data-reveal="fade-up">
+          <span class="section-label__index">003</span>
+          <span class="section-label__name">/ Selected Works</span>
+          <span class="section-label__rule" aria-hidden="true"></span>
+        </p>
+
+        <div class="grid">
+          <h2 class="display display--lg works__title" id="works-title" lang="en" data-reveal="words">
+            Campaigns that paid for themselves.
+          </h2>
+        </div>
+
+        <!-- TODO: toàn bộ số liệu + tên thương hiệu/ngành của Case 1 -->
+        <article class="case">
+          <header class="case__head">
+            <p class="mono case__index">Case 01</p>
+            <h3 class="display display--sm case__name" data-reveal="fade-up">
+              Scale Meta giữ vững hiệu quả
+            </h3>
+          </header>
+
+          <figure class="media media--wide case__media" data-parallax="0.15" role="img"
+                  aria-label="Mảng đồ hoạ trừu tượng màu kem và cam, gợi đường tăng trưởng ngân sách.">
+            <figcaption class="mono media__caption">Meta Ads — Scale</figcaption>
+          </figure>
+
+          <div class="case__grid">
+            <div class="case__block" data-reveal="fade-up">
+              <span class="mono case__block-label">Bối cảnh</span>
+              <p>
+                Thương hiệu ngành <span class="tbd"><span class="visually-hidden">đang cập nhật</span></span>
+                cần tăng doanh số nhưng sợ vỡ ROAS khi scale.
+              </p>
+            </div>
+
+            <div class="case__block" data-reveal="fade-up">
+              <span class="mono case__block-label">Cách làm</span>
+              <p>
+                Tái cấu trúc tài khoản, hệ thống creative testing theo tuần, quy tắc
+                phân bổ ngân sách theo tín hiệu sớm.
+              </p>
+            </div>
+
+            <div class="case__block case__block--result" data-reveal="fade-up">
+              <span class="mono case__block-label">Kết quả</span>
+              <p class="case__result">
+                Ngân sách x<span class="tbd tbd--sm"><span class="visually-hidden">đang cập nhật</span></span>
+                trong <span class="tbd tbd--sm"><span class="visually-hidden">đang cập nhật</span></span> tháng
+                — ROAS giữ <span class="tbd tbd--sm"><span class="visually-hidden">đang cập nhật</span></span>.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- TODO: toàn bộ số liệu Case 2 -->
+        <article class="case">
+          <header class="case__head">
+            <p class="mono case__index">Case 02</p>
+            <h3 class="display display--sm case__name" data-reveal="fade-up">
+              Mở kênh TikTok từ con số 0
+            </h3>
+          </header>
+
+          <figure class="media media--wide case__media" data-parallax="0.15" role="img"
+                  aria-label="Mảng đồ hoạ trừu tượng màu kem và cam, gợi luồng thử nghiệm creative.">
+            <figcaption class="mono media__caption">TikTok Ads — Launch</figcaption>
+          </figure>
+
+          <div class="case__grid">
+            <div class="case__block" data-reveal="fade-up">
+              <span class="mono case__block-label">Bối cảnh</span>
+              <p>Doanh nghiệp chưa từng chạy TikTok, toàn bộ doanh số phụ thuộc Meta.</p>
+            </div>
+
+            <div class="case__block" data-reveal="fade-up">
+              <span class="mono case__block-label">Cách làm</span>
+              <p>
+                Xây pipeline content-performance, test
+                <span class="tbd tbd--sm"><span class="visually-hidden">đang cập nhật</span></span>
+                mẫu creative/tháng, quy trình cắt-lỗ 48 giờ.
+              </p>
+            </div>
+
+            <div class="case__block case__block--result" data-reveal="fade-up">
+              <span class="mono case__block-label">Kết quả</span>
+              <p class="case__result">
+                TikTok chiếm <span class="tbd tbd--sm"><span class="visually-hidden">đang cập nhật</span></span>%
+                doanh số sau <span class="tbd tbd--sm"><span class="visually-hidden">đang cập nhật</span></span> tháng.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- TODO: toàn bộ số liệu Case 3 -->
+        <article class="case">
+          <header class="case__head">
+            <p class="mono case__index">Case 03</p>
+            <h3 class="display display--sm case__name" data-reveal="fade-up">
+              Hệ thống dashboard thay báo cáo tay
+            </h3>
+          </header>
+
+          <figure class="media media--wide case__media" data-parallax="0.15" role="img"
+                  aria-label="Mảng đồ hoạ trừu tượng màu kem và cam, gợi lưới dữ liệu dashboard.">
+            <figcaption class="mono media__caption">Data — Realtime</figcaption>
+          </figure>
+
+          <div class="case__grid">
+            <div class="case__block" data-reveal="fade-up">
+              <span class="mono case__block-label">Bối cảnh</span>
+              <p>Báo cáo thủ công chậm 1–2 ngày, quyết định ngân sách luôn trễ nhịp.</p>
+            </div>
+
+            <div class="case__block" data-reveal="fade-up">
+              <span class="mono case__block-label">Cách làm</span>
+              <p>Chuẩn hóa tracking, gom dữ liệu đa kênh về một dashboard realtime.</p>
+            </div>
+
+            <div class="case__block case__block--result" data-reveal="fade-up">
+              <span class="mono case__block-label">Kết quả</span>
+              <p class="case__result">
+                Thời gian ra quyết định từ
+                <span class="tbd tbd--sm"><span class="visually-hidden">đang cập nhật</span></span> ngày còn
+                <span class="tbd tbd--sm"><span class="visually-hidden">đang cập nhật</span></span> giờ.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         7 — METHOD (004)
+         =================================================================== -->
+    <section class="section method" id="method" aria-labelledby="method-title">
+      <div class="container">
+        <p class="mono section-label" data-reveal="fade-up">
+          <span class="section-label__index">004</span>
+          <span class="section-label__name">/ Method</span>
+          <span class="section-label__rule" aria-hidden="true"></span>
+        </p>
+
+        <div class="grid">
+          <h2 class="display display--lg method__manifesto" id="method-title" lang="en" data-reveal="lines">
+            Big budgets don&rsquo;t forgive guesswork.
+          </h2>
+
+          <p class="lead method__intro" data-reveal="fade-up">
+            Quy trình 4 bước áp cho mọi chiến dịch, mọi kênh, mọi quy mô ngân sách:
+          </p>
+
+          <ol class="method__steps">
+            <li class="step" data-reveal="fade-up">
+              <span class="step__index">01</span>
+              <h3 class="step__name">Research</h3>
+              <p class="step__desc">Hiểu sản phẩm, khách, đối thủ trước khi tiêu đồng nào.</p>
+            </li>
+            <li class="step" data-reveal="fade-up">
+              <span class="step__index">02</span>
+              <h3 class="step__name">Test</h3>
+              <p class="step__desc">Giả thuyết rõ ràng, ngân sách nhỏ, kết luận bằng số.</p>
+            </li>
+            <li class="step" data-reveal="fade-up">
+              <span class="step__index">03</span>
+              <h3 class="step__name">Scale</h3>
+              <p class="step__desc">Đổ ngân sách vào thứ đã chứng minh, theo quy tắc định sẵn.</p>
+            </li>
+            <li class="step" data-reveal="fade-up">
+              <span class="step__index">04</span>
+              <h3 class="step__name">Optimize</h3>
+              <p class="step__desc">Cắt cái yếu không thương tiếc, lặp lại mỗi tuần.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="marquee method__marquee" data-marquee aria-hidden="true">
+        <div class="marquee__track" data-marquee-track>
+          <span class="marquee__item">Research</span><span class="marquee__dot"></span>
+          <span class="marquee__item">Test</span><span class="marquee__dot"></span>
+          <span class="marquee__item">Scale</span><span class="marquee__dot"></span>
+          <span class="marquee__item">Optimize</span><span class="marquee__dot"></span>
+          <span class="marquee__item">Research</span><span class="marquee__dot"></span>
+          <span class="marquee__item">Test</span><span class="marquee__dot"></span>
+          <span class="marquee__item">Scale</span><span class="marquee__dot"></span>
+          <span class="marquee__item">Optimize</span><span class="marquee__dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         8 — QUOTE (đảo nền ink)
+         =================================================================== -->
+    <section class="section section--ink section--tight quote" aria-label="Trích dẫn">
+      <div class="container grid">
+        <blockquote class="quote__text" data-reveal="lines">
+          <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+          Chạy ads thì dễ. Chạy có lãi ở quy mô 15 tỷ mỗi tháng — đó mới là nghề.
+        </blockquote>
+        <cite class="mono quote__cite">Nguyễn Minh Điền</cite>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         9 — CONTACT (005)
+         =================================================================== -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <p class="mono section-label" data-reveal="fade-up">
+          <span class="section-label__index">005</span>
+          <span class="section-label__name">/ Contact</span>
+          <span class="section-label__rule" aria-hidden="true"></span>
+        </p>
+
+        <div class="grid">
+          <h2 class="display display--lg contact__title" id="contact-title" lang="en" data-reveal="words">
+            Let&rsquo;s talk numbers.
+          </h2>
+
+          <p class="lead contact__body" data-reveal="fade-up">
+            Đang tìm một performance leader chứng minh được bằng số liệu?
+            Tôi sẵn sàng cho buổi trao đổi thẳng thắn — mang theo dashboard thật.
+          </p>
+
+          <!-- TODO: xác nhận email cá nhân dùng cho ứng tuyển -->
+          <a class="contact__mail" href="mailto:oad@ngocdung.com" data-magnetic data-reveal="fade-up">
+            oad@ngocdung.com
+          </a>
+
+          <div class="contact__channels">
+            <!-- TODO: bổ sung link LinkedIn -->
+            <div class="channel" data-reveal="fade-up">
+              <span class="mono channel__label">LinkedIn</span>
+              <p class="channel__value">
+                <span class="tbd tbd--lg"><span class="visually-hidden">đang cập nhật</span></span>
+              </p>
+            </div>
+
+            <!-- TODO: bổ sung số Zalo / điện thoại -->
+            <div class="channel" data-reveal="fade-up">
+              <span class="mono channel__label">Zalo / Phone</span>
+              <p class="channel__value">
+                <span class="tbd tbd--lg"><span class="visually-hidden">đang cập nhật</span></span>
+              </p>
+            </div>
+
+            <div class="channel" data-reveal="fade-up">
+              <span class="mono channel__label">Based in</span>
+              <p class="channel__value">Ho Chi Minh City, VN</p>
+            </div>
+          </div>
+
+          <div class="contact__cta">
+            <a class="btn btn--accent" href="mailto:oad@ngocdung.com" data-magnetic>Gửi email</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner mono">
+      <span>© 2026 Nguyễn Minh Điền — Built with intent, measured by results.</span>
+      <span>Ho Chi Minh City, VN — GMT+7</span>
+    </div>
+  </footer>
+
+  <!-- Overlay dùng cho chuyển cảnh ở Phase 2 -->
+  <div class="shutter" data-shutter aria-hidden="true"></div>
+
+</body>
+</html>
